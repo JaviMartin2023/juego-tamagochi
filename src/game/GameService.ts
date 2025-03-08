@@ -44,8 +44,19 @@ export class GameService {
 
     public addPlayer(player: Player): boolean {
         const room: Room = RoomService.getInstance().addPlayer(player);
+        this.assignInitialPosition(player);
         //ServerService.getInstance().sendMessage(room.name,ServerService.messages.out.new_player,"new player");
-        ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, "new player");
+        ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, {
+            initial : this.initialPositions
+        });
+        ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, {
+            id: player.id.id,
+            x: player.x,
+            y: player.y,
+            state: player.state,
+            direction: player.direction,
+            visibility: player.visibility
+        });
         const genRanHex = (size: Number) => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
         if (room.players.length == 1) {
             const game: Game = {
@@ -69,5 +80,30 @@ export class GameService {
         }
 
         return false;
+    }
+
+    public assignInitialPosition(player: Player): void {
+        if (this.initialPositions.every(position => position === undefined)) {
+            this.initialPositions = [
+                { x: 0, y: 0 },
+                { x: 0, y: this.board.size - 1 },
+                { x: this.board.size -1, y: 0 },
+                { x: this.board.size -1, y: this.board.size -1}
+            ];
+        }
+        let randomPosition = this.randomNumberInitial();
+        let randomArrayPosition = this.initialPositions[randomPosition];
+        while (randomArrayPosition == undefined) {
+             randomPosition = this.randomNumberInitial();
+             randomArrayPosition = this.initialPositions[randomPosition];          
+        }
+        player.x = randomArrayPosition.x;
+        player.y = randomArrayPosition.y;
+        delete(this.initialPositions[randomPosition]);
+        console.log(`Player assigned position: (${player.x}, ${player.y})`);
+    }
+
+    public randomNumberInitial () : number {
+        return Math.floor(Math.random() * this.initialPositions.length);
     }
 }
