@@ -5,12 +5,22 @@ import { RoomService } from "../room/RoomService";
 import { Game, GameStates, Messages } from "./entities/Game";
 import { BoardBuilder } from "./BoardBuilder";
 import { ServerService } from "../server/ServerService"
+import { Board } from "./entities/Board";
 export class GameService {
     private games: Game[];
 
     private static instance: GameService;
+    private board : Board;
+    private initialPositions: { x: number, y: number }[];
     private constructor() {
         this.games = [];
+        this.board = new BoardBuilder().getBoard();
+        this.initialPositions = [
+            { x: 0, y: 0 },
+            { x: 0, y: this.board.size - 1 },
+            { x: this.board.size -1, y: 0 },
+            { x: this.board.size -1, y: this.board.size -1}
+        ];
     };
 
     static getInstance(): GameService {
