@@ -1,8 +1,8 @@
-#**Juego tamagochis Francisco Javier Martín Mariscal**
+# **Juego tamagochis Francisco Javier Martín Mariscal**
 
-##**Descripción del código** 
+## **Descripción del código** 
 
-###**Server**
+### **Server**
 
 El archivo principal que tenemos en el que básicamente arrancamos el server y definimos rutas, etc.
 
@@ -21,7 +21,7 @@ Como su nombre indica en él vamos a construir e inicializar nuestro tablero, me
 
 En cuanto a las entidades pues únicamente mencionar que contienen las propiedades o atributos de cada una además de enums que son necesarios para esas propiedades.
 
-###**Cliente**
+### **Cliente**
 
 En el cliente tenemos assets como pueden ser las imagenes o nuestro archivo de css, además de, obviamente, un index.html que será lo que visualicemos en el navegador.
 
