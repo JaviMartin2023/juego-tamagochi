@@ -57,7 +57,7 @@ export class GameService {
 
     async do_newPlayer (payload) {
         console.log("ha llegado un jugador nuevo");
-        console.log(payload); // Verificar los datos del jugador
+        console.log(payload); 
         this.#players.push(payload);
         console.log(this.#players);
         UIv1.drawPlayers(this.#players);   
@@ -67,5 +67,7 @@ export class GameService {
         this.#board.build(payload);
         this.#ui.drawBoard(this.#board.map);
     }
+
+    
     
 }

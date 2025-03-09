@@ -14,13 +14,13 @@ UIv1.drawBoard = (board) => {
         base.innerHTML = '';
         base.style.gridTemplateColumns = `repeat(${board.length}, 100px)`;
         base.style.gridTemplateRows = `repeat(${board.length}, 100px)`;
-        board.forEach((row, x) => row.forEach((cell, y) => {
+        board.forEach((row, y) => row.forEach((cell, x) => {
             const tile = document.createElement("div");
             tile.classList.add("tile");
             base.appendChild(tile);
             tile.dataset.x = x;
             tile.dataset.y = y;
-            console.log(`Dibujando tile en (${x}, ${y}):`, tile); // Verificar los elementos del DOM
+            console.log(`Dibujando tile en (${x}, ${y}):`, tile);
             if (cell === ELEMENTS.bush) {
                 tile.classList.add("bush");
             }
@@ -36,19 +36,18 @@ UIv1.drawBoard = (board) => {
 
 UIv1.getTile = (x, y) => {
     const tile = document.querySelector(`.tile[data-x="${x}"][data-y="${y}"]`);
-    console.log(`Buscando tile en (${x}, ${y}):`, tile); // Verificar los elementos del DOM
     return tile;
 }
 
 UIv1.drawPlayers = (players) => {
-    console.log("Dibujando jugadores:", players); // Verificar los datos de los jugadores
+    console.log("Dibujando jugadores:", players);
     players.forEach(player => {
         player.forEach(playerU => {
-            console.log(player);
-            console.log(playerU);
+            const antTile = UIv1.getTile(playerU.prevX, playerU.prevY);
+            if (antTile) {
+            antTile.classList.remove("player");
+            }
             const tile = UIv1.getTile(playerU.x, playerU.y);
-            console.log(tile);
-
             if (tile) {
                 tile.classList.add("player");
             } else {

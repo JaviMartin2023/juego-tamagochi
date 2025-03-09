@@ -24,4 +24,8 @@ export class GameController {
         if (this.#state === this.#states.RIGHT)
             this.#gameService.do(payload);
     }
+
+    movePlayer() {
+        this.#gameService.movePlayer();
+    }
 }

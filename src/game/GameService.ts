@@ -7,6 +7,7 @@ import { BoardBuilder } from "./BoardBuilder";
 import { ServerService } from "../server/ServerService"
 import { Board } from "./entities/Board";
 import { Server } from "http";
+
 export class GameService {
     private games: Game[];
 
@@ -46,18 +47,6 @@ export class GameService {
     public addPlayer(player: Player): boolean {
         const room: Room = RoomService.getInstance().addPlayer(player);
         this.assignInitialPosition(player);
-        //ServerService.getInstance().sendMessage(room.name,ServerService.messages.out.new_player,"new player");
-        // ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, {
-        //     initial : this.initialPositions
-        // });
-        // ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, {
-        //     id: player.id.id,
-        //     x: player.x,
-        //     y: player.y,
-        //     state: player.state,
-        //     direction: player.direction,
-        //     visibility: player.visibility
-        // });
         const genRanHex = (size: Number) => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
         if (room.players.length == 1) {
             const game: Game = {
@@ -114,5 +103,64 @@ export class GameService {
 
     public randomNumberInitial () : number {
         return Math.floor(Math.random() * this.initialPositions.length);
+    }
+
+    public socketPlayer(socket: Socket): Player| undefined { 
+        for (const game of this.games) {
+            for (const player of game.room.players) {
+                if (player.id === socket) {
+                    return player;
+                }
+            }
+        }
+        return undefined;
+    }
+
+    public movePlayer(playerId: string): boolean {
+        let room: Room | undefined;
+        let player: Player | undefined;
+
+        for (const game of this.games) {
+            if (game.room.players.some(p => p.id.id === playerId)) {
+                room = game.room;
+                player = game.room.players.find(p => p.id.id === playerId);
+            }
+        }
+
+        if (!room || !player) return false;
+
+        let newX = player.x;
+        let newY = player.y;
+
+        switch (player.direction) {
+            case Directions.Up:
+                newY--;
+                break;
+            case Directions.Down:
+                newY++;
+                break;
+            case Directions.Left:
+                newX--;
+                break;
+            case Directions.Right:
+                newX++;
+                break;
+        }
+
+        if (newX >= 0 && newX < this.board.size && newY >= 0 && newY < this.board.size && !room.players.some(p => p.x === newX && p.y === newY)) {
+            player.x = newX;
+            player.y = newY;
+            ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, room.players.map(p => ({
+                id: p.id.id,
+                x: p.x,
+                y: p.y,
+                state: p.state,
+                direction: p.direction,
+                visibility: p.visibility
+            })));
+            return true;
+        }
+
+        return false;
     }
 }

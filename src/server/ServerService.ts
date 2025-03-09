@@ -8,7 +8,8 @@ export class ServerService {
     private active : boolean;
     static messages = {
         out: {
-            new_player: "NEW_PLAYER"
+            new_player: "NEW_PLAYER",
+            player_moved: "playerMoved"
         } 
     }
 
@@ -60,6 +61,17 @@ export class ServerService {
             socket.on('disconnect', () => {
                 console.log('Un cliente se ha desconectado:', socket.id);
             });
+
+            socket.on("movePlayer", () => {
+                console.log(`Move request received from player ${socket.id}`);
+                const try = GameService.getInstance().movePlayer(socket.id);
+                if (try) {
+                    console.log(`Player ${socket.id} moved`);
+                } else {
+                    console.log(`Player ${socket.id} failed to move`);
+                }
+            });
+
         });
     }
 
