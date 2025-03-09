@@ -6,6 +6,7 @@ import { Game, GameStates, Messages } from "./entities/Game";
 import { BoardBuilder } from "./BoardBuilder";
 import { ServerService } from "../server/ServerService"
 import { Board } from "./entities/Board";
+import { Server } from "http";
 export class GameService {
     private games: Game[];
 
@@ -46,17 +47,17 @@ export class GameService {
         const room: Room = RoomService.getInstance().addPlayer(player);
         this.assignInitialPosition(player);
         //ServerService.getInstance().sendMessage(room.name,ServerService.messages.out.new_player,"new player");
-        ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, {
-            initial : this.initialPositions
-        });
-        ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, {
-            id: player.id.id,
-            x: player.x,
-            y: player.y,
-            state: player.state,
-            direction: player.direction,
-            visibility: player.visibility
-        });
+        // ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, {
+        //     initial : this.initialPositions
+        // });
+        // ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, {
+        //     id: player.id.id,
+        //     x: player.x,
+        //     y: player.y,
+        //     state: player.state,
+        //     direction: player.direction,
+        //     visibility: player.visibility
+        // });
         const genRanHex = (size: Number) => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
         if (room.players.length == 1) {
             const game: Game = {
@@ -74,6 +75,14 @@ export class GameService {
                 room.game.state = GameStates.PLAYING;
                 if (ServerService.getInstance().isActive()) {
                     ServerService.getInstance().sendMessage(room.name, Messages.BOARD, room.game.board);
+                    ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, room.players.map(p => ({
+                        id: p.id.id,
+                        x: p.x,
+                        y: p.y,
+                        state: p.state,
+                        direction: p.direction,
+                        visibility: p.visibility
+                    })));
                 }
             }
             return true;

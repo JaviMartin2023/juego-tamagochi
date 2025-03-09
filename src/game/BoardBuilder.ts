@@ -5,7 +5,7 @@ export class BoardBuilder {
     
     constructor() {
         this.board = {
-            size: 10,
+            size: 5,
             elements: []
         }
         const map : Array<number[]> = [

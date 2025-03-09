@@ -1,5 +1,6 @@
 import { Board } from "../entities/Board.js";
 import { Queue } from "../Queue.js";
+import { UIv1 } from "../UIv1.js";
 export class GameService {
     #states = {
         WAITING : 0,
@@ -56,7 +57,11 @@ export class GameService {
 
     async do_newPlayer (payload) {
         console.log("ha llegado un jugador nuevo");
-    };
+        console.log(payload); // Verificar los datos del jugador
+        this.#players.push(payload);
+        console.log(this.#players);
+        UIv1.drawPlayers(this.#players);   
+    }
 
     async do_newBoard(payload) {
         this.#board.build(payload);

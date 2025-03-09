@@ -12,3 +12,11 @@
     justify-content: center;
     border: 1px dotted #000000;
 }
+
+.bush {
+    background-color: green;
+} 
+
+.player {
+    background-color: red;
+}
