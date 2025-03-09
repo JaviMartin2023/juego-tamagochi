@@ -39,7 +39,7 @@ export class GameService {
             x: 0,
             y: 0,
             state: PlayerStates.Idle,
-            direction: Directions.Up,
+            direction: Directions.Right,
             visibility: true
         }
     }
@@ -162,5 +162,45 @@ export class GameService {
         }
 
         return false;
+    }
+
+    public rotatePlayer(playerId: string): boolean {
+        let room: Room | undefined;
+        let player: Player | undefined;
+
+        for (const game of this.games) {
+            if (game.room.players.some(p => p.id.id === playerId)) {
+                room = game.room;
+                player = game.room.players.find(p => p.id.id === playerId);
+            }
+        }
+
+        if (!room || !player) return false;
+
+        switch (player.direction) {
+            case Directions.Up:
+                player.direction = Directions.Right;
+                break;
+            case Directions.Down:
+                player.direction = Directions.Left;
+                break;
+            case Directions.Left:
+                player.direction = Directions.Up;
+                break;
+            case Directions.Right:
+                player.direction = Directions.Down;
+                break;
+        }
+
+        ServerService.getInstance().sendMessage(room.name, Messages.NEW_PLAYER, room.players.map(p => ({
+            id: p.id.id,
+            x: p.x,
+            y: p.y,
+            state: p.state,
+            direction: p.direction,
+            visibility: p.visibility
+        })));
+    
+        return true;
     }
 }

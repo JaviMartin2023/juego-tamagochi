@@ -50,8 +50,19 @@ export const ConnectionHandler = {
             ConnectionHandler.socket.emit("movePlayer");
         } else {
             console.log("No se ha podido mover el jugador");
-            console.log("Estado de conexión:", ConnectionHandler.connected);
-            console.log("Estado del socket:", ConnectionHandler.socket);
+            console.log("Conex:", ConnectionHandler.connected);
+            console.log("socket:", ConnectionHandler.socket);
+        }
+    },
+
+    rotatePlayer: () => {
+        if (ConnectionHandler.connected && ConnectionHandler.socket) {
+            console.log("rotando jugador");
+            ConnectionHandler.socket.emit("rotatePlayer");
+        } else {
+            console.log("No se ha podido rotar el jugador");
+            console.log("Conex:", ConnectionHandler.connected);
+            console.log("socket:", ConnectionHandler.socket);
         }
     },
 }

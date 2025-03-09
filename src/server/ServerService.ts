@@ -72,6 +72,16 @@ export class ServerService {
                 }
             });
 
+            socket.on("rotatePlayer", () => {
+                console.log(`Rotate request received from player ${socket.id}`);
+                const success = GameService.getInstance().rotatePlayer(socket.id);
+                if (success) {
+                    console.log(`Player ${socket.id} rotated`);
+                } else {
+                    console.log(`Player ${socket.id} failed to rotate`);
+                }
+            });
+
         });
     }
 

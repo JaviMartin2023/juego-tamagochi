@@ -8,3 +8,8 @@ document.getElementById("move").addEventListener("click", () => {
     console.log("Mover jugador pulsado");
     ConnectionHandler.movePlayer();
 });
+
+document.getElementById("rotate").addEventListener("click", () => {
+    console.log("Rotar jugador pulsado");
+    ConnectionHandler.rotatePlayer();
+});

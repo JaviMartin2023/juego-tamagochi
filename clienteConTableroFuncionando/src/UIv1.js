@@ -45,11 +45,12 @@ UIv1.drawPlayers = (players) => {
         player.forEach(playerU => {
             const antTile = UIv1.getTile(playerU.prevX, playerU.prevY);
             if (antTile) {
-            antTile.classList.remove("player");
+                antTile.classList.remove("player", "up", "down", "left", "right");
             }
             const tile = UIv1.getTile(playerU.x, playerU.y);
             if (tile) {
-                tile.classList.add("player");
+                tile.classList.remove("player", "up", "down", "left", "right");
+                tile.classList.add("player", playerU.direction.toLowerCase());
             } else {
                 console.error(`Tile not found for player at (${player.x}, ${player.y})`);
         }
