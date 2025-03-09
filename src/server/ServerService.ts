@@ -82,6 +82,16 @@ export class ServerService {
                 }
             });
 
+            socket.on("shootPlayer", () => {
+                console.log(`Shoot request received from player ${socket.id}`);
+                const success = GameService.getInstance().shoot(socket.id);
+                if (success) {
+                    console.log(`Player ${socket.id} has shoot`);
+                } else {
+                    console.log(`Player ${socket.id} failed to shoot`);
+                }
+            });
+
         });
     }
 

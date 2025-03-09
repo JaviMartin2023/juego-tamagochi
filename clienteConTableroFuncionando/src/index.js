@@ -13,3 +13,8 @@ document.getElementById("rotate").addEventListener("click", () => {
     console.log("Rotar jugador pulsado");
     ConnectionHandler.rotatePlayer();
 });
+
+document.getElementById("shoot").addEventListener("click", () => {
+    console.log("Disparar pulsado");
+    ConnectionHandler.shootPlayer();
+});

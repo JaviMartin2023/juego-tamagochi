@@ -44,3 +44,7 @@
 .player.up {
     transform: rotate(270deg);
 }
+
+.hide-button {
+    display: none;
+}

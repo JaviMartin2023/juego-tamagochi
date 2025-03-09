@@ -65,4 +65,15 @@ export const ConnectionHandler = {
             console.log("socket:", ConnectionHandler.socket);
         }
     },
+
+    shootPlayer: () => {
+        if (ConnectionHandler.connected && ConnectionHandler.socket) {
+            console.log("disparando a jugador");
+            ConnectionHandler.socket.emit("shootPlayer");
+        } else {
+            console.log("No se ha podido disparar");
+            console.log("Conex:", ConnectionHandler.connected);
+            console.log("socket:", ConnectionHandler.socket);
+        }
+    },
 }

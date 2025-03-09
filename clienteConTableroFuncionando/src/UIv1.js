@@ -22,7 +22,7 @@ UIv1.drawBoard = (board) => {
             tile.dataset.y = y;
             console.log(`Dibujando tile en (${x}, ${y}):`, tile);
             if (cell === ELEMENTS.bush) {
-                tile.classList.add("bush");
+                tile.classList.add("bush");                
             }
             anime({
                 targets: tile,
@@ -51,6 +51,17 @@ UIv1.drawPlayers = (players) => {
             if (tile) {
                 tile.classList.remove("player", "up", "down", "left", "right");
                 tile.classList.add("player", playerU.direction.toLowerCase());
+                const shootButton = document.getElementById("shoot");
+                if (tile.classList.contains("bush")) {
+                    tile.classList.remove("player", playerU.direction.toLowerCase());     
+                    if (shootButton) {
+                        shootButton.classList.add("hide-button");
+                    }
+                } else {
+                    if (shootButton) {
+                        shootButton.classList.remove("hide-button");
+                    }
+                }
             } else {
                 console.error(`Tile not found for player at (${player.x}, ${player.y})`);
         }
