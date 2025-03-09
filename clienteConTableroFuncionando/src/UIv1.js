@@ -42,15 +42,33 @@ UIv1.getTile = (x, y) => {
 UIv1.drawPlayers = (players) => {
     console.log("Dibujando jugadores:", players);
     players.forEach(player => {
-        player.forEach(playerU => {
-            const antTile = UIv1.getTile(playerU.prevX, playerU.prevY);
-            if (antTile) {
-                antTile.classList.remove("player", "up", "down", "left", "right");
+        player.forEach((playerU, index) => {
+            let antX = playerU.x;
+            let antY = playerU.y;
+
+            switch (playerU.direction) {
+                case "right":
+                    antX = playerU.x - 1;
+                    break;
+                case "left":
+                    antX = playerU.x + 1;
+                    break;
+                case "up":
+                    antY = playerU.y + 1;
+                    break;
+                case "down":
+                    antY = playerU.y - 1;
+                    break;
+            }
+            const tileAnt = UIv1.getTile(antX, antY);
+            if (tileAnt) {
+                tileAnt.classList.remove(`player-${index}`);
             }
             const tile = UIv1.getTile(playerU.x, playerU.y);
             if (tile) {
-                tile.classList.remove("player", "up", "down", "left", "right");
-                tile.classList.add("player", playerU.direction.toLowerCase());
+                tile.classList.remove(`player-${index}`, "up", "down", "left", "right");
+                console.log(playerU.direction.toLowerCase());
+                tile.classList.add(`player-${index}`, playerU.direction.toLowerCase());
                 const shootButton = document.getElementById("shoot");
                 if (tile.classList.contains("bush")) {
                     tile.classList.remove("player", playerU.direction.toLowerCase());     

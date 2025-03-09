@@ -21,7 +21,7 @@
     height: 100%;
 }
 
-.player {
+.player-0 {
     background-image: url('../img/pistola.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -29,19 +29,43 @@
     height: 100%;
 }
 
-.player.right {
+.player-1 {
+    background-image: url('../img/pistola.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.player-2 {
+    background-image: url('../img/pistola.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.player-3 {
+    background-image: url('../img/pistola.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.right {
     transform: rotate(0deg);
 }
 
-.player.down {
+.down {
     transform: rotate(90deg);
 }
 
-.player.left {
+.left {
     transform: scaleX(-1);
 }
 
-.player.up {
+.up {
     transform: rotate(270deg);
 }
 
