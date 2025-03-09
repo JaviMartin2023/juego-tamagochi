@@ -14,9 +14,33 @@
 }
 
 .bush {
-    background-color: green;
-} 
+    background-image: url('../img/arbusto.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
 
 .player {
-    background-color: red;
+    background-image: url('../img/pistola.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.player.right {
+    transform: rotate(0deg);
+}
+
+.player.down {
+    transform: rotate(90deg);
+}
+
+.player.left {
+    transform: scaleX(-1);
+}
+
+.player.up {
+    transform: rotate(270deg);
 }

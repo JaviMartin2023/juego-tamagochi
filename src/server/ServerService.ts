@@ -64,8 +64,8 @@ export class ServerService {
 
             socket.on("movePlayer", () => {
                 console.log(`Move request received from player ${socket.id}`);
-                const try = GameService.getInstance().movePlayer(socket.id);
-                if (try) {
+                const success = GameService.getInstance().movePlayer(socket.id);
+                if (success) {
                     console.log(`Player ${socket.id} moved`);
                 } else {
                     console.log(`Player ${socket.id} failed to move`);
