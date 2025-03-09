@@ -30,7 +30,7 @@
 }
 
 .player-1 {
-    background-image: url('../img/pistola.png');
+    background-image: url('../img/pistola-azul.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -38,7 +38,7 @@
 }
 
 .player-2 {
-    background-image: url('../img/pistola.png');
+    background-image: url('../img/pistola-rojo.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -46,7 +46,7 @@
 }
 
 .player-3 {
-    background-image: url('../img/pistola.png');
+    background-image: url('../img/pistola-verde.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
