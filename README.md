@@ -1,5 +1,7 @@
 # **Juego tamagochis Francisco Javier Martín Mariscal**
 
+![image](https://github.com/user-attachments/assets/d8288b69-ab35-4338-baca-59900ed00999)
+
 ## **Descripción del código** 
 
 ### **Server**
